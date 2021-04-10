@@ -1,0 +1,22 @@
+type VCard {
+    id: ID!
+    c1: String!
+    c2: String!
+    c3: String!
+    rec: String!
+    sender: String!
+    msg: String!
+    link: String!
+  }
+   type Query {
+    getVCard: [VCard]
+
+    GetVCardByLink(link: String): VCard
+  }
+  mutataion: addVCard{  
+            addVCard(c1: $c1,c2: $c2,c3: $c3,rec: $rec,sender: $sender,msg: $msg)
+                id
+            }
+    
+  
+  

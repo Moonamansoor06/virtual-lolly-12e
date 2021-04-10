@@ -33,7 +33,7 @@ const resolvers = {
   Query: {
     getVCard: async () => {
       try {
-        var adminClient = new faunadb.Client({ secret: 'fnAEF8YbZfACDXKW6yjt_kSjy9oW5f_o0coqmxtF' })
+        var adminClient = new faunadb.Client({ secret: 'fnAEGGsGhhACDaILOkkxkGADgK6OZtc-yIfOYWvU' })
         const result = await adminClient.query(
           q.Map(
             q.Paginate(q.Match(q.Index('VCard'))),  
@@ -41,6 +41,7 @@ const resolvers = {
           )
         )
        return result.data.map(d => {
+         console.log('data is =========',d)
           return {
             link: d.data.link,
             c1: d.data.c1,
@@ -63,19 +64,19 @@ const resolvers = {
       
         return result.data
       } catch (err) {
-        console.log("error from function>>>>>:", err)
+   
         return err.toString()
       }
     },
   },
   Mutation: {
     addVCard: async (_, { c1, c2, c3, rec, msg, sender }) => {
-      var adminClient = new faunadb.Client({ secret: 'fnAEF8YbZfACDXKW6yjt_kSjy9oW5f_o0coqmxtF' });
+      var adminClient = new faunadb.Client({ secret: 'fnAEGGsGhhACDaILOkkxkGADgK6OZtc-yIfOYWvU' });
 
       console.log(c1, c2, c3, rec, msg, sender)
       const result = await adminClient.query(
         q.Create(
-          q.Collection('vCards'),
+          q.Collection('VCard'),
           {
             data: {
               c1, c2, c3, rec, msg, sender,
@@ -84,6 +85,8 @@ const resolvers = {
           },
         )
       )
+
+      console.log('data ============>',data)
       return result.data.data
     },
   
