@@ -8,14 +8,7 @@ module.exports = {
 
   
   plugins: [`gatsby-plugin-netlify`,
-  {
-    resolve: "gatsby-source-graphql",
-    options: {
-      typeName: " GetVCardLink",
-      fieldName: " GetVCardLink",
-      url: "https://virtual-lolly-12e.netlify.app/.netlify/functions/vcard",
-    },
-  }
+  
   ],
 
  
