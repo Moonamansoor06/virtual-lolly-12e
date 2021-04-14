@@ -1,22 +1,54 @@
 import React from 'react'
-import { navigate } from "gatsby";
+import { graphql } from "gatsby";
+import "./../pages/styles.css";
 
 
-export const Result= ({ link, rec, sender, msg}) => {
+export const query = graphql`
+query myQuery ($link:String!) {
+GetVCardLink {
+  getVCardbyLink{
+   link,
+     c1
+     c2
+     c3
+      msg
+      rec
+      sender
+
+  }}
+  
+}
+`
+
+
+
+
+export const Result= ({ data}) => {
     return (
-        <div className="result">
-            <br></br>
-
-            <h4>Share lolly with this link:</h4>
-            <h3>{`https://virtual-lolly-12e.netlify.app//lollies/${link}`}</h3>
-            <div className="resultCard">
-                <p >To:{sender}</p>
-                <p >Message:{msg}</p>
-                <p>From:{rec}</p>
-            </div>
-            <br></br>
-
-            <button onClick={() => navigate("/")}> Go Back</button>
-</div>
+        <div  className="container">
+        
+        <h5 >share your lolly link: </h5>
+        <span >
+      
+          {`https://virtual-lolly-12e.netlify.app/VCard/${data.GetVCardLink.link}`}
+        </span>
+        <div className="main-container">
+          <Lolly
+       
+            c1={data.GetVCardLink.getVCardbyLink.c1}
+            c2={data.GetVCardLink.getVCardbyLink.c2}
+            c3={data.GetVCardLink.getVCardbyLink.c3}
+          />
+  
+          <div className="form-container ">
+            <h3> To: {data.GetVCardLink.getVCardbyLink.rec}</h3>
+            <p>{data.GetVCardLink.getVCardbyLink.msg}</p>
+            <h4>From: {data.GetVCardLink.getVCardbyLink.sender}</h4>
+          </div>
+        </div>
+      </div>
 );
 }
+
+
+

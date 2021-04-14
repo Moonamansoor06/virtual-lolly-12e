@@ -7,7 +7,7 @@ const typeDefs = gql`
   type Query {
     getVCard: [VCard]
 
-    GetVCardByLink(link: String): VCard
+    GetVCardLink(link: String): VCard
   }
   type VCard {
     id: ID!
@@ -60,9 +60,15 @@ const resolvers = {
    
       try {
         const result = await adminClient.query(
-          q.Get(q.Match(q.Index("Lolly_by_path"), args.link)))
+          q.Get(q.Match(q.Index("Lolly_by_link"), args.link)))
       
-        return result.data
+        return result.data.map(d => {
+          console.log('data is =========',d)
+           return {
+             link: d.data.link,
+           
+           }
+         })
       } catch (err) {
    
         return err.toString()
