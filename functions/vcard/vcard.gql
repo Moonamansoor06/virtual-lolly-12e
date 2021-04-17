@@ -11,12 +11,9 @@ type VCard {
    type Query {
     getVCard: [VCard]
 
-    GetVCardByLink(link: String): VCard
+    GetVCardLink(link: String): VCard
   }
-  mutataion: addVCard{  
-            addVCard(c1: $c1,c2: $c2,c3: $c3,rec: $rec,sender: $sender,msg: $msg)
-                id
-            }
+
     
   
   

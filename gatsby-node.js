@@ -2,9 +2,9 @@ const path = require(`path`)
 
 exports.createPages = async ({ actions, graphql }) => {
   const { data } = await graphql(`
-  query myQuery ($link:String!) {
-GetVCardLink {
-  getVCardbyLink{
+  query myQuery  {
+    getVCard{
+      VCards{
       link
      
  
@@ -13,7 +13,7 @@ GetVCardLink {
     `)
 
   console.log(data)
-  data.GetVCardLink.forEach(({link,c1,c2,c3,sender,msg,rec }) => {
+  data.getVCard.VCards.forEach(({link }) => {
     actions.createPage({
       path: `VCard/${link}`,
       component: path.resolve(`./src/components/result.js`),

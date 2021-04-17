@@ -11,19 +11,7 @@ import shortid from "shortid";
 import "./styles.css";
 
 
-const GET_VCard = gql`
-query   
-  getVCard  {
-    id 
-      c1 
-      c2 
-      c3 
-      sender 
-      message 
-      rec 
-      link 
-    }
-    `
+
 const ADD_VCARD = gql`
     mutation addVCard($c1: String!, 
         $c2: String!,
@@ -70,7 +58,7 @@ export default function ResultCard() {
             c1: c1, c2: c2, c3: c3,
             link: id,
           },
-          refetchQueries: [{ query: GET_VCard }]
+       
 
         })
 
@@ -87,7 +75,7 @@ export default function ResultCard() {
 
 
 
-  const {  data } = useQuery(GET_VCard)
+
 
 
 

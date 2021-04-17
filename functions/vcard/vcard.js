@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server-lambda')
+const axios = require("axios")
 const faunadb = require('faunadb'),
   q = faunadb.query;
 const shortid = require('shortid');
@@ -7,7 +8,7 @@ const typeDefs = gql`
   type Query {
     getVCard: [VCard]
 
-    GetVCardLink(link: String): VCard
+    GetVCardLink(link: String): [VCard]
   }
   type VCard {
     id: ID!
@@ -33,7 +34,7 @@ const resolvers = {
   Query: {
     getVCard: async () => {
       try {
-        var adminClient = new faunadb.Client({ secret: 'fnAEGGsGhhACDaILOkkxkGADgK6OZtc-yIfOYWvU' })
+        var adminClient = new faunadb.Client({ secret: 'fnAEG_dJZ9ACCA2gw3hSWK5ExfOilUlAMGcSvFdp' })
         const result = await adminClient.query(
           q.Map(
             q.Paginate(q.Match(q.Index('VCard'))),  
@@ -76,29 +77,28 @@ const resolvers = {
     },
   },
   Mutation: {
-    addVCard: async (_, { c1, c2, c3, rec, msg, sender }) => {
-      var adminClient = new faunadb.Client({ secret: 'fnAEGGsGhhACDaILOkkxkGADgK6OZtc-yIfOYWvU' });
-
-      console.log(c1, c2, c3, rec, msg, sender)
-      const result = await adminClient.query(
-        q.Create(
-          q.Collection('VCard'),
-          {
-            data: {
-              c1, c2, c3, rec, msg, sender,
-              link: shortid.generate()
-            }
-          },
-        )
+    addVCard: async (root, args) => {
+      const result = await client.query(
+        q.Create(q.Collection("VCard"), {
+          data: args,
+        })
       )
 
-      console.log('data ============>',data)
-      return result.data.data
+      axios
+        .post("https://api.netlify.com/build_hooks/60772b9272359f0b8b20dddd")
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+
+      console.log(result)
+      return result.data
     },
-  
-  
- 
-}},
+  },
+}
+
 
 
 const server = new ApolloServer({
