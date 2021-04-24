@@ -8,7 +8,7 @@ const typeDefs = gql`
   type Query {
     getVCard: [VCard]
 
-    GetVCardLink(link: String): [VCard]
+    getVCardLink(link: String): [VCard]
   }
   type VCard {
     id: ID!
@@ -57,19 +57,14 @@ const resolvers = {
         console.log("error from function:", err)
       }
     },
-    GetVCardLink: async (_, args) => {
+    getVCardLink: async (_, args) => {
    
       try {
         const result = await adminClient.query(
-          q.Get(q.Match(q.Index("Lolly_by_link"), args.link)))
+          q.Get(q.Match(q.Index("VCard_by_link"), args.link)))
       
-        return result.data.map(d => {
-          console.log('data is =========',d)
-           return {
-             link: d.data.link,
-           
-           }
-         })
+        return result.data
+         
       } catch (err) {
    
         return err.toString()
@@ -77,12 +72,18 @@ const resolvers = {
     },
   },
   Mutation: {
-    addVCard: async (root, args) => {
-      const result = await client.query(
-        q.Create(q.Collection("VCard"), {
-          data: args,
-        })
-      )
+    addVCard: async (_, args) => {
+      try {
+        const link = shortId.generate();
+        console.log(link)
+        args.link= link;
+        console.log(args)
+        const result = await Client.query(
+          q.Create(q.Collection("VCard"), {
+            data: args,
+          })
+        );
+
 
       axios
         .post("https://api.netlify.com/build_hooks/60772b9272359f0b8b20dddd")
@@ -91,12 +92,15 @@ const resolvers = {
         })
         .catch(function (error) {
           console.error(error)
-        })
+        });
 
       console.log(result)
-      return result.data
-    },
-  },
+      return result.data;
+      }catch (error) {
+    return error.toString();
+  }
+  }
+}
 }
 
 
@@ -104,6 +108,7 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  playground: true,
 })
 
 exports.handler = server.createHandler()

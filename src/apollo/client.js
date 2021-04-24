@@ -1,4 +1,4 @@
-/* import React from "react"
+ /* import React from "react"
 import ApolloClient from "apollo-boost"
 import { ApolloProvider } from "react-apollo"
 
@@ -16,11 +16,9 @@ const client = new ApolloClient({
 export const wrapRootElement = ({ element }) => (
   <ApolloProvider client={client}>{element}</ApolloProvider>
 )
-
-
  */
 
-
+ 
 
 
 
@@ -33,4 +31,4 @@ export const client = new ApolloClient({
     fetch,
   }),
   cache: new InMemoryCache()
-}) 
+})  

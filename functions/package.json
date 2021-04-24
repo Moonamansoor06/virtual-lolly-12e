@@ -1,0 +1,12 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "main": "vcard.js",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-lambda": "^2.23.0",
+    "faunadb": "^4.2.0",
+    "graphql": "^15.5.0",
+    "shortid": "^2.2.16"
+  }
+}

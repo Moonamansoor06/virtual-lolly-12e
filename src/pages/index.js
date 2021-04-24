@@ -8,13 +8,15 @@ export default function index() {
     <div className="container">
     
       <div className="main-container" >
-    
-        <Lolly     
-         c1="#6b6bde"
-         c2="#4ac383"
-         c3="#d2ec27"
-        />
-       
+
+      <div className="listLollies">
+        <div>
+          <Lolly top="#d52358" middle="#e95946" bottom="#deaa43"  />
+        </div> 
+        <div>
+          <Lolly top="red" middle="green" bottom="blue"  />
+        </div>  
+      </div>
       </div>
 
       <button      

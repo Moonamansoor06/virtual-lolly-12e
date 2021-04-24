@@ -1,14 +1,14 @@
 
 
 import React, { useState } from 'react';
-import {navigate} from 'gatsby'
 import Lolly from '../components/lolly'
-import { useMutation, gql, useQuery } from '@apollo/client';
+import { useMutation, gql} from '@apollo/client';
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import shortid from "shortid";
-
+import { navigate } from "gatsby"
 import "./styles.css";
+
 
 
 
@@ -22,9 +22,26 @@ const ADD_VCARD = gql`
             addVCard(c1: $c1,c2: $c2,c3: $c3,rec: $rec,sender: $sender,msg: $msg)
     }
 `
+
+ const GET_VCARD = gql`
+  {
+    getVCard {
+      VCard{
+      c1
+      c2
+      c3
+      msg
+      rec
+      sender
+      link
+    }
+  }}
+`
+ 
+
 export default function ResultCard() {
 
-
+/*   const [updated, setUpdated] = useState(false) */
   const [c1, setC1] = useState("#deaa43");
   const [c2, setC2] = useState("#e95946");
   const [c3, setC3] = useState("#d52358");
@@ -58,18 +75,18 @@ export default function ResultCard() {
             c1: c1, c2: c2, c3: c3,
             link: id,
           },
-       
-
+          refetchQueries: [{ query: GET_VCARD}]
         })
 
       }
-
+     
       submitVCard()
-      navigate(`/VCard/${id}`)
-    
 
 
+ /*      VCardArray++
+      setUpdated(true) */
 
+      navigate("/result")
     },
   })
 
@@ -79,9 +96,9 @@ export default function ResultCard() {
 
 
 
-
-
-
+/*   const { data } = useQuery(GET_VCard)
+  console.log('my required data is ==================', data)
+  var VCardArray = data.getVCard.VCard.lenght */
   return (<div className="container">
     <h1>Create Lolly</h1>
     <div className="main-container">
@@ -96,7 +113,7 @@ export default function ResultCard() {
       <div>
 
         <form onSubmit={formik.handleSubmit}>
-          <label  htmlFor="sendName">
+          <label htmlFor="sendName">
             To:
           </label>
           <div>
@@ -104,48 +121,48 @@ export default function ResultCard() {
               ? formik.errors.rec
               : null}
           </div>
-          <input        
+          <input
             type="text"
             name="rec"
             id="rec"
             onChange={formik.handleChange}
           />
-  <div>
-          <label  htmlFor="msg" style={{ marginTop: '2px' }}>
+          <div>
+            <label htmlFor="msg" style={{ marginTop: '2px' }}>
 
-            Message:{" "}
-          </label>
-          <div >
-            {formik.errors.msg && formik.touched.msg
-              ? formik.errors.msg
-              : null}
+              Message:{" "}
+            </label>
+            <div >
+              {formik.errors.msg && formik.touched.msg
+                ? formik.errors.msg
+                : null}
+            </div>
+            <textarea
+              id="msg"
+              name="msg"
+              onChange={formik.handleChange}
+              className="inputTextBox"
+              cols={30}
+              rows={15}
+            />
           </div>
-          <textarea
-            id="msg"
-            name="msg"
-            onChange={formik.handleChange}
-            className="inputTextBox"
-            cols={30}
-            rows={15}
-          />
-</div>
-<div>
-          <label htmlFor="sender" style={{ marginTop: '2px' }}>
-       
-            From:{" "}
-          </label>
-          <div >
-            {formik.errors.sender && formik.touched.sender
-              ? formik.errors.sender
-              : null}
-          </div>
-          <input
-            onChange={formik.handleChange}
-            className="inputText"
-            type="text"
-            name="sender"
-            id="sender"
-          /></div>
+          <div>
+            <label htmlFor="sender" style={{ marginTop: '2px' }}>
+
+              From:{" "}
+            </label>
+            <div >
+              {formik.errors.sender && formik.touched.sender
+                ? formik.errors.sender
+                : null}
+            </div>
+            <input
+              onChange={formik.handleChange}
+              className="inputText"
+              type="text"
+              name="sender"
+              id="sender"
+            /></div>
           <br></br>
           <br></br>
 
@@ -153,15 +170,12 @@ export default function ResultCard() {
             Send Lolly to a Friend
           </button>
         </form>
-     
+
       </div>
 
 
 
     </div>
-
-
-
 
 
 

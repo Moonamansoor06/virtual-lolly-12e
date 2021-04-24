@@ -13,7 +13,16 @@ type VCard {
 
     GetVCardLink(link: String): VCard
   }
+  type Mutation {
+    addVCard(c1: String!, 
+      c2: String!,
+      c3: String!,
+      rec: String!,
+      sender: String!,
+      msg: String!) {
+            addVCard(c1: $c1,c2: $c2,c3: $c3,rec: $rec,sender: $sender,msg: $msg)
+    }
+  }
 
+  
     
-  
-  
