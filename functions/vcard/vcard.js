@@ -32,7 +32,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    getVCard: async () => {
+    getVCard: async (_, args) => {
       try {
         var adminClient = new faunadb.Client({ secret: 'fnAEG_dJZ9ACCA2gw3hSWK5ExfOilUlAMGcSvFdp' })
         const result = await adminClient.query(

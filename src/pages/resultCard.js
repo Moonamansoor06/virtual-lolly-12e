@@ -6,7 +6,7 @@ import { useMutation, gql} from '@apollo/client';
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import shortid from "shortid";
-import { navigate } from "gatsby"
+import { navigate } from "@reach/router"
 import "./styles.css";
 
 
@@ -68,7 +68,7 @@ export default function ResultCard() {
       const id = shortid.generate()
 
       const submitVCard = async () => {
-        const result = await addVCard({
+         await addVCard({
           variables: {
             rec: values.rec,
             sender: values.sender,
@@ -76,29 +76,31 @@ export default function ResultCard() {
             link: id,
           },
           refetchQueries: [{ query: GET_VCARD}]
+        
         })
-
+        .then(result => {
+          navigate(`/${result.data.createLolly.lollyPath}`)
+          
+          console.log(result)
       }
-     
-      submitVCard()
+    
+    
+
+  
+    
+  
+        )}
+
+  submitVCard()
+
+}
+})
 
 
- /*      VCardArray++
-      setUpdated(true) */
-
-      navigate("/result")
-    },
-  })
 
 
 
 
-
-
-
-/*   const { data } = useQuery(GET_VCard)
-  console.log('my required data is ==================', data)
-  var VCardArray = data.getVCard.VCard.lenght */
   return (<div className="container">
     <h1>Create Lolly</h1>
     <div className="main-container">
