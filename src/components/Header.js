@@ -1,5 +1,6 @@
 import { Link } from "@reach/router"
 import React from "react"
+import '../pages/styles.css'
 
 export default function Header() {
     return (
@@ -9,7 +10,7 @@ export default function Header() {
                 virtual lolly
             </h1>
                 </Link>
-            <p className="subtitle" > because we all know someone who deserves some sugar</p>
+            <p className='lollyslogan' > because we all know someone who deserves some sugar</p>
 
 
         </div>

@@ -36,3 +36,11 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.lollyslogan {
+    font-size: 1rem;
+    font-style: italic;
+    color:aliceblue;
+    margin: 1.5em;
+    line-height: 1;
+  }
