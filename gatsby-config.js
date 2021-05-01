@@ -1,6 +1,6 @@
 module.exports = {
 plugins: [`gatsby-plugin-netlify`,
-  {
+  /* {
     resolve: "gatsby-source-graphql",
     options: {
           typeName: "VCard",
@@ -12,7 +12,7 @@ plugins: [`gatsby-plugin-netlify`,
   },
     fetchOptions: {},
   },
-  
+   */
   ],
 
  
