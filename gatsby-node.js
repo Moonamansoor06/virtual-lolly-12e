@@ -31,7 +31,7 @@ exports.createPages = async function ({ graphql, actions }) {
 
 }
 
-exports.onCreatePage = async ({page, actions}) => {
+/* exports.onCreatePage = async ({page, actions}) => {
     const {createPage} =  actions
 
     if(page.path.match(/^\/vcard/)){
@@ -41,4 +41,4 @@ exports.onCreatePage = async ({page, actions}) => {
 
     }
 
-}
+} */

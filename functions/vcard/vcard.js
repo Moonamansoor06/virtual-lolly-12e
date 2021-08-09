@@ -6,9 +6,9 @@ const shortid = require('shortid');
 
 const typeDefs = gql`
   type Query {
-    getVCard: [VCard]
+    getVCard: [VCard!]
 
-    getVCardLink(link: String): [VCard]
+    getVCardLink(link: String!): [VCard!]
   }
   type VCard {
     id: ID!
@@ -57,11 +57,11 @@ const resolvers = {
         console.log("error from function:", err)
       }
     },
-    getVCardLink: async (_, args) => {
+    getVCardLink: async (_, {link}) => {
    
       try {
         const result = await adminClient.query(
-          q.Get(q.Match(q.Index("VCard_by_link"), args.link)))
+          q.Get(q.Match(q.Index("VCard_by_link"), link)))
       
         return result.data
          
