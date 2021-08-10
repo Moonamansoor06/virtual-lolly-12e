@@ -2,43 +2,44 @@ exports.createPages = async function ({ graphql, actions }) {
 
     const query = await graphql(`
     query {
-        getVCard{
-          data
-           {
-           link
-           c1
-           c2
-           c3
-           rec
-           sender  
-           msg
-          }
-          }
+        getLolly{
+            getLolly{    
+                recipientName
+                message
+                sender
+                flavourTop
+                flavourMedium 
+                flavourBottom 
+                lollyPath
+            }
         }
-      
+      }
           `);
 
-      const vcard = query.data.getVCard.data;
+    console.log(JSON.stringify(query));
 
-      vcard.map((vc) => {
+      const posts =   query.data.getLolly.getLolly;
+
+      posts.map((post) => {
           actions.createPage({
-              path: `/${vc.link}`,
-              component: require.resolve(`./src/templates/vcard.js`),
-              context: vc,
+              path: `/${post.lollyPath}`,
+              component: require.resolve(`./src/templates/showLolly`),
+              context: post,
           });
       })
 
 
+    console.log("End of Gatsby Node File");
 }
 
-/* exports.onCreatePage = async ({page, actions}) => {
+exports.onCreatePage = async ({page, actions}) => {
     const {createPage} =  actions
 
-    if(page.path.match(/^\/vcard/)){
-        page.matchPath = "/vcard/*"
+    if(page.path.match(/^\/lolly/)){
+        page.matchPath = "/lolly/*"
 
         createPage(page)
 
     }
 
-} */
+}
